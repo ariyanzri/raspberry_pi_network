@@ -1,5 +1,4 @@
 import os
-import re
 
 f = os.popen('sudo nmap -sP 192.168.0.*')
 output = f.read()
@@ -7,9 +6,20 @@ output = f.read()
 connected_devices = output.split('\nNmap ')
 
 for d in connected_devices:
-# 	scan report for 192.168.0.5
-# Host is up (0.048s latency).
-# MAC Address: B8:BC:5B:94:96:F1 (Unknown)
 
-	m = re.match("\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b",d)
-	print(m.group(0))
+	ip_address = ""
+	mac_address = ""
+	name = ""
+
+	lines = d.split('\n')
+
+	for l in lines:
+		if "scan report for" in l:
+			ip_address = l.split("for ")[1]
+
+		elif "MAC Address" in l:
+			temp = l.split("Address: ")[1]
+			mac_address = temp.split(" ")[0]
+			name = temp.split(" ")[1].replace('(','').replace(')','')
+
+	print("Device Name: ({0}) - Device IP: ({1}) - Device MAC: ({2})".format(name,ip_address,mac_address))
