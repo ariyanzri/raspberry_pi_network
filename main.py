@@ -22,4 +22,7 @@ for d in connected_devices:
 			mac_address = temp.split(" ")[0]
 			name = temp.split(" ")[1].replace('(','').replace(')','')
 
+	if ip_address == "" and mac_address == "" and name == "":
+		continue
+
 	print("Device Name: ({0}) - Device IP: ({1}) - Device MAC: ({2})".format(name,ip_address,mac_address))
