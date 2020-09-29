@@ -77,15 +77,15 @@ while True:
 	for d in devices:
 		if d not in current_devices:
 			if d.mac_address in known_mac_addresses:
-				continue:
+				continue
 
 			write_log("Device connected: {0}".format(d))
 
 	for d in current_devices:
 		if d not in devices:
 			if d.mac_address in known_mac_addresses:
-				continue:
-				
+				continue
+
 			write_log("Device disconnected: {0}".format(d))
 
 	current_devices = devices
