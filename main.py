@@ -2,6 +2,9 @@ import os
 import time 
 from datetime import date,datetime
 
+known_mac_addresses = ["14:AB:C5:24:7D:A9","3E:B7:E1:30:FB:91","00:00:CA:01:02:03","B8:BC:5B:94:96:F1","20:F3:75:C9:67:1F"]
+update_interval = 10
+current_devices = []
 
 class Device:
 
@@ -68,9 +71,6 @@ def write_log(string):
 		with open('/media/usb/network_logs/{0}_device_connection_log.txt'.format(date_now),"w+") as f:
 			f.write('{0} {1} --> {2}\n'.format(date_now,time_now,string))
 
-update_interval = 10
-current_devices = []
-
 while True:
 	devices = get_list_devices()
 
@@ -84,5 +84,5 @@ while True:
 
 	current_devices = devices
 
-	time.sleep(20)
+	time.sleep(update_interval)
 
