@@ -1,5 +1,7 @@
 import os
 import time 
+from datetime import date,datetime
+
 
 class Device:
 
@@ -14,7 +16,7 @@ class Device:
 		return False
 
 	def __str__(self):
-		return "--- device name: ({0}) - IP address: {1} - MAC address: {2} ---".format(self.name,self.ip_address,self.mac_address)
+		return "{0} - {1} - {2}".format(self.name,self.ip_address,self.mac_address)
 
 def get_list_devices():
 
@@ -53,6 +55,18 @@ def get_list_devices():
 
 	return device_list
 
+def write_log(string):
+	date_now = date.today().strftime("%d_%m_%Y")
+	
+	time_now = datetime.now().strftime("%H:%M:%S")
+	
+	if os.path.exists('/media/usb/network_logs/{0}_device_connection_log.txt'.format(date_now)):
+		with open('/media/usb/network_logs/{0}_device_connection_log.txt'.format(date_now),"a+") as f:
+			f.write('{0} {1} --> {2}'.format(date_now,time_now,string))
+
+	else:
+		with open('/media/usb/network_logs/{0}_device_connection_log.txt'.format(date_now),"w+") as f:
+			f.write('{0} {1} --> {2}'.format(date_now,time_now,string))
 
 update_interval = 10
 current_devices = []
@@ -62,11 +76,11 @@ while True:
 
 	for d in devices:
 		if d not in current_devices:
-			print("Device connected: {0}".format(d))
+			write_log("Device connected: {0}".format(d))
 
 	for d in current_devices:
 		if d not in devices:
-			print("Device disconnected: {0}".format(d))
+			write_log("Device disconnected: {0}".format(d))
 
 	current_devices = devices
 
