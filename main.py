@@ -45,7 +45,8 @@ def get_list_devices():
 		if ip_address == "" and mac_address == "" and name == "":
 			continue
 
-		if ip_address == "192.168.0.2"
+		if ip_address == "192.168.0.2":
+			continue
 
 		dvc = Device(name,ip_address,mac_address)
 		device_list.append(dvc)
