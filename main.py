@@ -2,7 +2,7 @@ import os
 import time 
 from datetime import date,datetime
 
-known_mac_addresses = ["14:AB:C5:24:7D:A9","3E:B7:E1:30:FB:91","00:00:CA:01:02:03","B8:BC:5B:94:96:F1","20:F3:75:C9:67:1F"]
+known_mac_addresses = ["14:AB:C5:24:7D:A9","3E:B7:E1:30:FB:91"]
 update_interval = 10
 current_devices = []
 
@@ -76,10 +76,16 @@ while True:
 
 	for d in devices:
 		if d not in current_devices:
+			if d.mac_address in known_mac_addresses:
+				continue:
+
 			write_log("Device connected: {0}".format(d))
 
 	for d in current_devices:
 		if d not in devices:
+			if d.mac_address in known_mac_addresses:
+				continue:
+				
 			write_log("Device disconnected: {0}".format(d))
 
 	current_devices = devices
