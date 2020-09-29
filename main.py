@@ -62,11 +62,11 @@ def write_log(string):
 	
 	if os.path.exists('/media/usb/network_logs/{0}_device_connection_log.txt'.format(date_now)):
 		with open('/media/usb/network_logs/{0}_device_connection_log.txt'.format(date_now),"a+") as f:
-			f.write('{0} {1} --> {2}'.format(date_now,time_now,string))
+			f.write('{0} {1} --> {2}\n'.format(date_now,time_now,string))
 
 	else:
 		with open('/media/usb/network_logs/{0}_device_connection_log.txt'.format(date_now),"w+") as f:
-			f.write('{0} {1} --> {2}'.format(date_now,time_now,string))
+			f.write('{0} {1} --> {2}\n'.format(date_now,time_now,string))
 
 update_interval = 10
 current_devices = []
