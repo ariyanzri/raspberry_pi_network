@@ -48,6 +48,8 @@ def get_list_devices():
 		dvc = Device(name,ip_address,mac_address)
 		device_list.append(dvc)
 
+	return device_list
+
 
 update_interval = 10
 current_devices = []
